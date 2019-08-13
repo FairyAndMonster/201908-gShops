@@ -6,11 +6,26 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 import FooterGuide from './components/FooterGuide/FooterGuide'
+import {reqAddress,reqCategorys} from './api/index.js'
 export default {
   name: 'App',
   components: {
     FooterGuide
+  },
+  data(){
+    return {
+      count: 0
+    }
+    
+  },
+  methods:{
+  },
+  mounted(){
+   // const geohash = 40.10038,116.36867;
+   //this.$store.dispatch('getAddress')
+   //this.$store.dispatch('getCategorys')
   }
 }
 </script>
