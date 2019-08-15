@@ -22,7 +22,7 @@
         <!-- 密码登录 -->
         <div class="tabContent" v-show="!loginWay">
           <div class="fromItem">
-            <input type="number" placeholder="手机/邮箱/用户名" v-model="name">
+            <input type="text" placeholder="手机/邮箱/用户名" v-model="name">
           </div>
           <div class="fromItem">
             <input type="text" placeholder="密码" v-show="value" v-model="pwd">
@@ -34,7 +34,9 @@
             </el-switch>
           </div>
           <div class="fromItem">
-            <input type="number" placeholder="验证码" v-model="captcha">
+            <input type="text" placeholder="验证码" v-model="captcha">
+            <!-- 图形验证码 -->
+            <img class="captcha" ref="captcha" src="http://localhost:4000/captcha" alt="" @click="clickChangeCaptcha">
           </div>
         </div>
         <div class="tipText">
@@ -51,78 +53,129 @@
 </template>
 <script>
 import alertTip from '../../components/alertTip/alertTip'
+import { reqMsgLogin, reqSendCode, reqPwdLogin } from '../../api/index.js'
 export default {
   components: {
     alertTip
   },
-  data(){
+  data() {
     return {
-      loginWay: true,
+      loginWay: false,
       phone: '',  //手机号
       code: '',   //验证码
       name: '',   //用户名
       pwd: '',    //密码
       captcha: '',  //图形验证码
       clickGetCode: true,
-      countTime: 0,   
+      countTime: 0,
       value: true,  //开关开启
       alertIsShow: false, //是否显示提示框
       tipText: ''   //提示语
     }
   },
-  methods:{
+  methods: {
     //短信登录
-    msgLogin(){
+    msgLogin() {
       this.loginWay = true;
     },
     //密码登录
-    pwdLogin(){
+    pwdLogin() {
       this.loginWay = false;
     },
     //点击获取验证码
-    getCode(){
+    async getCode() {
+      //验证手机号是否合格
+      if (!(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/).test(this.phone)) {
+        this.alertShow('请检查手机号是否正确！');
+        return
+      }
+      //倒计时发送验证码    
       this.countTime = 30;
-      let timeId = setInterval(() => {       
+      this.timeId = setInterval(() => {
         this.countTime--;
-        if(this.countTime === 0){
-          clearInterval(timeId)
+        if (this.countTime === 0) {
+          clearInterval(this.timeId)
         }
-      },1000)
+      }, 1000)
+      //发送短信验证码请求请求
+      res = await reqSendCode(this.phone);
+      if (res.code === 1) {
+        //清除定时器
+        //判断是否倒计时
+        if (this.countTime) {
+          clearInterval(this.timeId)
+          this.alertShow(res.msg)
+          this.countTime = 0;
+        }
+      } else {
+
+      }
     },
     //提示框
-    alertShow(tipText){
+    alertShow(tipText) {
       this.alertIsShow = true;
       this.tipText = tipText
     },
     //表单提交
-    getFormData(){
+    async getFormData() {
+      const { phone, pwd, name, captcha } = this;
+      //存储用户信息
+      let res;
       //判断是短信验证码登录还是密码登录
-      if(this.loginWay){   //短信登录
+      if (this.loginWay) {   //短信登录
         //验证手机号是否合格
-        if(!(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/).test(this.phone)){
+        if (!(/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/).test(this.phone)) {
           this.alertShow('手机号不正确！')
-        }else if(!(/^\d{6}$/).test(this.code)){   //验证短信验证码
+        } else if (!(/^\d{6}$/).test(this.code)) {   //验证短信验证码
           this.alertShow('短信验证码不正确！')
         }
-      }else {         //密码登录
-        if(!this.name){   //用户名验证
+      } else {         //密码登录
+        if (!this.name) {   //用户名验证
           this.alertShow('用户名不能为空！')
+          return
           alert('用户名不能为空！')
-        } else if(!this.pwd){ //密码验证
+        } else if (!this.pwd) { //密码验证
           this.alertShow('密码不能为空！')
-        } else if(!this.captcha){ //图形验证码验证
+          return
+        } else if (!this.captcha) { //图形验证码验证
           this.alertShow('验证码不能为空！')
+          return
         }
+        //发送密码登录请求
+        res = await reqPwdLogin({ name, pwd, captcha });
+        //存储用户信息
+
+
+      }
+      //请求成功
+      if(res.code === 0){
+        //路由跳转到个人中心页面
+        this.$router.replace('/profile')
+        //存储登录信息到vuex
+        const userInfo = res.data;
+        this.$store.dispatch('saveUserInfo',userInfo);
+      } else {
+        //刷新图形验证码
+        this.clickChangeCaptcha()
+        //错误提示
+        this.alertShow(res.msg)
       }
     },
     //关闭提示框
-    closeTip(){
+    closeTip() {
       this.alertIsShow = false;
       this.tipText = ''
+    },
+    //点击切换图片验证码
+    clickChangeCaptcha() {
+      //加时间戳，请求最新的图形验证码
+      //event.target.src = "http://localhost:4000/captcha?time=" + Date.now()
+      //console.log(event.target.src)
+      this.$refs.captcha.src = "http://localhost:4000/captcha?time=" + Date.now()
     }
   },
-  computed:{
-    vertifyPhone(){
+  computed: {
+    vertifyPhone() {
       return (/^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\d{8}$/).test(this.phone)
     }
   }
@@ -147,13 +200,12 @@ export default {
     .formTab {
       font: 16px;
       margin: 10px 0;
-      
     }
     .on {
-        color: aquamarine;
-        border-bottom: 1px solid aquamarine;
-      }
-    .tabContent { 
+      color: aquamarine;
+      border-bottom: 1px solid aquamarine;
+    }
+    .tabContent {
       padding: 0 50px;
       box-sizing: border-box;
       .code {
@@ -174,8 +226,12 @@ export default {
       height: 40px;
       text-align: left;
       input {
-       height: 40px;
-       outline: none;
+        height: 40px;
+        outline: none;
+      }
+      .captcha {
+        width: 100px;
+        float: right;
       }
     }
     .tipText {

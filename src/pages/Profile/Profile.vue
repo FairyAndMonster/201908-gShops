@@ -10,7 +10,7 @@
               <img src="./img/login.jpg" alt="">
             </div>
           <div>
-              <p>登录/注册</p>
+              <p v-if="userInfo">登录/注册</p>
               <p>暂无绑定手机号</p>
             </div>
           <div class="loginRight">
@@ -43,11 +43,15 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
 export default {
   name: 'Profile',
   components: {
     HeaderTop
+  },
+  computed:{
+    ...mapState(['userInfo'])
   }
 }
 </script>

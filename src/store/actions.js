@@ -1,7 +1,7 @@
 import state from "./state";
 //引入api接口函数
 import { reqAddress, reqCategorys, reqShops } from '../api/index'
-import { RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS } from './mutation-types'
+import { RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USER_INFO } from './mutation-types'
 
 import mutations from "./mutations";
 /**
@@ -31,8 +31,12 @@ export default {
     const res = await reqShops(latitude, longitude);
     if(res.code === 0){
       const shops = res.data;
-          console.log(shops)
+      //console.log(shops)
       commit(RECEIVE_SHOPS,{shops})
     }
+  },
+  //同步获取用户信息
+  saveUserInfo({commit}){
+    commit(RECEIVE_USER_INFO,{userInfo})
   }
 }
