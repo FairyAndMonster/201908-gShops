@@ -3,7 +3,7 @@
     <div @click="$router.back()"><i class="el-icon-arrow-left"></i></div>
     <div class="loginContain">
       <h3>硅谷外卖</h3>
-      <form action="" @submit="getFormData">
+      <form action="" @submit.prevent="getFormData">
         <div class="formTab">
           <span :class="{on:loginWay}" @click="msgLogin">短信登录</span>
           <span :class="{on:!loginWay}" @click="pwdLogin">密码登录</span>
@@ -118,6 +118,7 @@ export default {
     },
     //表单提交
     async getFormData() {
+     // debugger
       const { phone, pwd, name, captcha } = this;
       //存储用户信息
       let res;
@@ -141,18 +142,21 @@ export default {
           this.alertShow('验证码不能为空！')
           return
         }
+        //debugger
         //发送密码登录请求
         res = await reqPwdLogin({ name, pwd, captcha });
         //存储用户信息
 
 
       }
+      console.log(res)
       //请求成功
-      if(res.code === 0){
+      if(res.code === 0){       
         //路由跳转到个人中心页面
         this.$router.replace('/profile')
         //存储登录信息到vuex
-        const userInfo = res.data;
+        let userInfo = res.data;
+        console.log(userInfo)
         this.$store.dispatch('saveUserInfo',userInfo);
       } else {
         //刷新图形验证码

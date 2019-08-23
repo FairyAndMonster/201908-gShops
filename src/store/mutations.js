@@ -12,7 +12,7 @@ export default {
   [RECEIVE_SHOPS](state, { shops }) {
     state.shops = shops
   },
-  [RECEIVE_USER_INFO](state,{ userInfo }){
-    state.userInfo = userInfo
+  [RECEIVE_USER_INFO](state,{userInfo}){
+    state.userInfo = userInfo;
   }
 }

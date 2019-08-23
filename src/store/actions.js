@@ -36,7 +36,7 @@ export default {
     }
   },
   //同步获取用户信息
-  saveUserInfo({commit}){
+  saveUserInfo({ commit },userInfo){
     commit(RECEIVE_USER_INFO,{userInfo})
   }
 }

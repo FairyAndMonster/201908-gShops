@@ -7,12 +7,12 @@
 
         <router-link to="/login" class="login">
           <div>
-              <img src="./img/login.jpg" alt="">
-            </div>
-          <div>
-              <p v-if="userInfo">登录/注册</p>
-              <p>暂无绑定手机号</p>
-            </div>
+            <img src="./img/login.jpg" alt="">
+          </div>
+          <div> 
+            <p>{{userInfo?userInfo.name:登录/注册}}</p>
+            <p>{{userInfo?'欢迎登录！':'暂无绑定手机号'}}</p>
+          </div>
           <div class="loginRight">
             <i class="el-icon-arrow-right"></i>
           </div>

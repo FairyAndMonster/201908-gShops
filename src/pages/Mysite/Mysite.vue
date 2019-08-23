@@ -9,10 +9,26 @@
       <div class="headerMiddle ellipsis">
         
       </div>
+      <!-- <router-link class="headerRight" slot="right" to="{{userInfo?./Profile:./Login}}">
+        <div v-if="!userInfo">
+          <span>登录</span>
+          <span>注册</span>
+        </div>
+            
+          <div class="demo-basic--circle" v-else>
+              <div class="block"><el-avatar :size="30" :src="circleUrl"></el-avatar></div>
+          </div>
+      </router-link> -->
        <div class="headerRight" slot="right">
-        <span>登录</span>
-        <span>注册</span>
-      </div>
+         <router-link to="./Login" v-if="!userInfo">
+            <span>登录</span>
+            <span>注册</span>
+         </router-link>
+        <router-link to="./Profile" class="demo-basic--circle" v-else>
+          <div class="block"><el-avatar :size="30" :src="circleUrl"></el-avatar></div>
+        </router-link>
+        
+       </div>
     </HeaderTop>
     
     <section>
@@ -60,7 +76,9 @@ export default {
   },
   data(){
     return {
-      baseImageUrl: 'https://fuss10.elemecdn.com'
+      baseImageUrl: 'https://fuss10.elemecdn.com',
+      circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      sizeList: ["large", "medium", "small"]
     }
   },
   mounted(){
@@ -68,8 +86,14 @@ export default {
     this.$store.dispatch('getCategorys');
     //this.$store.dispatch('getShops');
   },
+  methods:{
+    // goLogin(){
+    //   alert(1)
+    //   this.$router.push('/Login')
+    // }
+  },
   computed:{
-   ...mapState(['address','categorys']),
+   ...mapState(['address','categorys','userInfo']),
    categorysArr(){
      const {categorys} = this;
      //二维数组
