@@ -4,11 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUi from 'element-ui'
+import { Button } from 'mint-ui'
+// import MintUi from 'mint-ui'
 import axios from 'axios'
 import './common/css/style.css'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'mint-ui/lib/style.css'
 import store from './store/index'
 Vue.use(ElementUi)
+Vue.component(Button.name, Button);
 
 Vue.config.productionTip = false
 

@@ -1,7 +1,7 @@
 /**
  * vuex 的mutations模块
  */
-import { RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS,RECEIVE_USER_INFO} from './mutation-types'
+import { RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USER_INFO,USER_LOGOUT} from './mutation-types'
 export default {
   [RECEIVE_ADDRESS] (state,{address}){
     state.address = address
@@ -14,5 +14,8 @@ export default {
   },
   [RECEIVE_USER_INFO](state,{userInfo}){
     state.userInfo = userInfo;
+  },
+  [USER_LOGOUT](state){
+    state.userInfo = '';
   }
 }

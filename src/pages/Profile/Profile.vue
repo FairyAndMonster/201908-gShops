@@ -10,8 +10,8 @@
             <img src="./img/login.jpg" alt="">
           </div>
           <div> 
-            <p>{{userInfo?userInfo.name:登录/注册}}</p>
-            <p>{{userInfo?'欢迎登录！':'暂无绑定手机号'}}</p>
+            <p>{{userInfo._id?userInfo.name:'登录/注册'}}</p>
+            <p>{{userInfo._id?'欢迎登录！':'暂无绑定手机号'}}</p>
           </div>
           <div class="loginRight">
             <i class="el-icon-arrow-right"></i>
@@ -39,12 +39,16 @@
          </div>
       </div>
     </section>
+    <section>
+      <mt-button type="danger" v-if="userInfo._id" style="width: 100%" @click="loginOut">退出登录</mt-button>
+    </section>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
 import HeaderTop from '../../components/HeaderTop/HeaderTop'
+import { MessageBox,Toast  } from 'mint-ui'
 export default {
   name: 'Profile',
   components: {
@@ -52,6 +56,19 @@ export default {
   },
   computed:{
     ...mapState(['userInfo'])
+  },
+  methods:{
+    loginOut(){
+      MessageBox.confirm('确定执行此操作?').then(action => {
+        if(action == 'confirm'){
+          //发送登出请求
+          this.$store.dispatch('logout');
+          Toast('退出成功！');
+        } else {
+          //do nothing
+        }
+      });
+    }
   }
 }
 </script>

@@ -20,7 +20,7 @@
           </div>
       </router-link> -->
        <div class="headerRight" slot="right">
-         <router-link to="./Login" v-if="!userInfo">
+         <router-link to="./Login" v-if="!userInfo._id">
             <span>登录</span>
             <span>注册</span>
          </router-link>
