@@ -20,11 +20,16 @@ export default {
     }
     
   },
-  methods:{
-  },
   mounted(){
-   
+   this.getUserInfo();
   },
+  methods:{
+    ...mapActions(['getUserInfo'])
+  },
+  computed:{
+    
+  },
+  
   created(){
     //在页面加载时取出sessionStorage中的数据
     if(sessionStorage.getItem('store')){

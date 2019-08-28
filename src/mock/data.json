@@ -1,0 +1,46 @@
+{
+  "goods":[
+    {
+      "name":"买过",
+      "value":["大盘鸡拌面","随炒方便面"],
+      "monthlySale":"23",
+      "praise":"5",
+      "nowPrice":"14.9",
+      "oldPrice":"20",
+      "discountedPrice":"7.5折",
+      "limit":"限10份"
+    },
+    {
+      "name":"热卖",
+      "value":["大盘鸡拌面","味道大盘鸡","羊肉串","烤面筋","烤鸡肉肠"],
+      "monthlySale":"23",
+      "praise":"5",
+      "nowPrice":"14.9",
+      "oldPrice":"20",
+      "discountedPrice":"7.5折",
+      "limit":"限10份"
+    },
+    {
+      "name":"折扣",
+      "value":["麻酱凉面","四川凉面","鸡丝凉面","烤鱼豆腐5串","烤土豆片5串"],
+      "monthlySale":"23",
+      "praise":"5",
+      "nowPrice":"14.9",
+      "oldPrice":"20",
+      "discountedPrice":"7.5折",
+      "limit":"限10份"
+    }
+  ],
+  "comments":{
+    "totalRating":4.1,
+    "flavorRating":4.1,
+    "packRating": 4.3,
+    "distributionSatisfaction":"97%",
+    "commentNumber": 8015,
+    "goodComments": 7484,
+    "negativeComment": 354,
+    "commentsList":[
+      {"user":"sjdjs","userRating":"5","ratingTime":"2019.08.13","userComments":"very good!"}
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul v-if="shops.length">
-        <li v-for="(item,index) in shops" :key="index">
+        <li v-for="(item,index) in shops" :key="index" @click="GoShops">
           <div>
             <img src="./img/ym.jpg" alt="">
           </div>
@@ -90,6 +90,11 @@ export default {
   },
   computed: {
     ...mapState(['shops'])
+  },
+  methods: {
+    GoShops(){
+      this.$router.push('/shops')
+    }
   }
 }
 </script>

@@ -6,7 +6,10 @@ import Search from '../pages/Search/Search'
 import Profile from '../pages/Profile/Profile'
 import Login from '../pages/Login/Login'
 import Home from '@/components/Home'
-
+import Shops from '../pages/Shops/Shops'
+import Foods from '../pages/Shops/Foods/Foods.vue'
+import Comments from '../pages/Shops/comments/comments.vue'
+import Bussness from '../pages/Shops/Bussness/Bussness.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -52,5 +55,28 @@ export default new Router({
       path: '/',
       redirect: 'MySite'
     },
+    {
+      path: '/shops',
+      component: Shops,
+      name: Shops,
+      children:[
+        {
+          path: '/shops/foods',
+          component: Foods
+        },
+        {
+          path: '/shops/comments',
+          component: Comments
+        },
+        {
+          path: '/shops/Bussness',
+          component: Bussness
+        },
+        {
+          path: '/',
+          redirect: 'Foods'
+        }
+      ]
+    }
   ]
 })

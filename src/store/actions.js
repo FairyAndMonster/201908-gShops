@@ -1,6 +1,6 @@
 import state from "./state";
 //引入api接口函数
-import { reqAddress, reqCategorys, reqShops,reqLogout } from '../api/index'
+import { reqAddress, reqCategorys, reqShops, reqLogout, reqUserInfo } from '../api/index'
 import { RECEIVE_ADDRESS, RECEIVE_CATEGORYS, RECEIVE_SHOPS, RECEIVE_USER_INFO, USER_LOGOUT } from './mutation-types'
 
 import mutations from "./mutations";
@@ -39,6 +39,15 @@ export default {
   saveUserInfo({ commit },userInfo){
     commit(RECEIVE_USER_INFO,{userInfo})
   },
+  //根据会话获取用户信息
+  async getUserInfo({commit}){
+    const res = await reqUserInfo();
+    if(res.code === 0){
+      const userInfo = res.data;
+      commit(RECEIVE_USER_INFO, { userInfo })
+    }
+  },
+   
   //用户退出
   async logout({ commit }){
     const res = await reqLogout();

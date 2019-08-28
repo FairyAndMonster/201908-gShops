@@ -22,3 +22,6 @@ export const reqMsgLogin = (phone, code) => ajax(`${BASE_URL}/login_sms`, { phon
 export const reqUserInfo = () => ajax(`${BASE_URL}/userinfo`)
   // [10、用户登出](#10用户登出)
 export const reqLogout = () => ajax(`${BASE_URL}/logout`)
+
+//获取食物
+export const reqFoods = () => ajax('https://www.easy-mock.com/mock/5d47ff728567cc5e640a2bed/gShops/foods')
