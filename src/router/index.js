@@ -56,25 +56,24 @@ export default new Router({
       redirect: 'MySite'
     },
     {
-      path: '/shops',
+      path: '/Shops',
       component: Shops,
-      name: Shops,
       children:[
         {
           path: '/shops/foods',
           component: Foods
         },
         {
-          path: '/shops/comments',
+          path: '/shops/c omments',
           component: Comments
         },
         {
-          path: '/shops/Bussness',
+          path: '/shops/bussness',
           component: Bussness
         },
         {
           path: '/',
-          redirect: 'Foods'
+          redirect: 'foods'
         }
       ]
     }

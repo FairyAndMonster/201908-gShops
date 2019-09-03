@@ -8,20 +8,20 @@
       <div class="tab">
         <div class="tab-title">
           <keep-alive>
-            <router-link to="/Shops/foods" class="tab-item" replace>点菜</router-link>
+            <router-link to="/Shops/foods" class="tab-item" :class="{active:'/Shops/foods' === $route.path}" replace>点菜</router-link>
           </keep-alive>
           <keep-alive>
-            <router-link to="/Shops/comments" class="tab-item" replace>评价</router-link>
+            <router-link to="/Shops/comments" class="tab-item" :class="{active:$route.path === '/Shops/comments'}" replace>评价</router-link>
           </keep-alive>
             <keep-alive>
-              <router-link to="/Shops/bussness" class="tab-item" replace>商家</router-link>
+              <router-link to="/Shops/bussness" class="tab-item" :class="{active:$route.path === '/Shops/bussness'}" replace>商家</router-link>
             </keep-alive>
             
         </div>
         <router-view></router-view>       
       </div>
       <!-- 购物车 -->
-      <div class="shopCar">
+      <!-- <div class="shopCar">
         <p>满25减14；满49减24；满79减31；满100减45</p>
         <div class="innerShopCar">
           <span class="contact-bussness">
@@ -32,7 +32,7 @@
             <img src="./img/pslogo.jpg" alt="">
           </span>
         </div>
-      </div>
+      </div> -->
     </section>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
     }
   }
   .shopsBottom {
-    height: 70%;
+    height: calc(70% + 50px);
     padding: 0 10px;
     .shopsHeader {
       height: 150px;
@@ -70,6 +70,7 @@ export default {
       background-color: #fff;
     }
     .tab {
+      height: calc(100% - 150px);
       .tab-title {
         display: flex;
       }
@@ -77,6 +78,9 @@ export default {
         flex: 1;
         font-size: 16px;
         text-align: center;
+      }
+       .active {
+        border-bottom: 2px solid orangered;
       }
       .router-link-active {
         border-bottom: 2px solid orangered;
