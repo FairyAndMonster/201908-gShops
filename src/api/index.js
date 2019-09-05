@@ -25,3 +25,5 @@ export const reqLogout = () => ajax(`${BASE_URL}/logout`)
 
 //获取食物
 export const reqFoods = () => ajax('https://www.easy-mock.com/mock/5d47ff728567cc5e640a2bed/gShops/foods')
+//获取店铺详情
+export const reqInfo = () => ajax('https://www.easy-mock.com/mock/5d47ff728567cc5e640a2bed/gShops/info')

@@ -8,7 +8,7 @@
       <div class="tab">
         <div class="tab-title">
           <keep-alive>
-            <router-link to="/Shops/foods" class="tab-item" :class="{active:'/Shops/foods' === $route.path}" replace>点菜</router-link>
+            <router-link to="/Shops/foods" class="tab-item" :class="{active:$route.path === '/Shops/foods'}" replace>点菜</router-link>
           </keep-alive>
           <keep-alive>
             <router-link to="/Shops/comments" class="tab-item" :class="{active:$route.path === '/Shops/comments'}" replace>评价</router-link>
@@ -34,15 +34,19 @@
         </div>
       </div> -->
     </section>
+    <!-- 点击食物弹出层 -->
+    <!-- <FoodDetail v-if=""/> -->
   </div>
 </template>
 
 <script>
 import ShopsHeader from '../../components/shopsHeader/ShopsHeader'
+import FoodDetail from '../../components/FoodDetail/FoodDetail'
 export default {
   name: 'Shops',
   components:{
-    ShopsHeader
+    ShopsHeader,
+    FoodDetail
   },
 }
 </script>
@@ -51,6 +55,7 @@ export default {
 .shops {
   width: 100%;
   height: 100%;
+  position: relative;
   .ShopsTop{
     height: 30%;
     background: url(./img/bg.jpg) no-repeat;

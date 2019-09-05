@@ -4,3 +4,6 @@ export const RECEIVE_SHOPS = 'receive_shops'          //接收商铺
 export const RECEIVE_USER_INFO = 'receive_user_info'  //接收用户信息
 export const USER_LOGOUT = 'user_logout'              //用户登出
 export const RECEIVE_GOODS = 'receive_goods'          //获取商品
+export const RECEIVE_INFO = 'receive_info'            //获取店铺详情
+export const INCREMENT_FOOD_COUNT = 'increment_food_count'  //增加购物车商品数量
+export const DECREMENT_FOOD_COUNT = 'decrement_food_count'  //减少购物车商品数量

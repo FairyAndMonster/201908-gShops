@@ -64,7 +64,7 @@ export default new Router({
           component: Foods
         },
         {
-          path: '/shops/c omments',
+          path: '/shops/comments',
           component: Comments
         },
         {

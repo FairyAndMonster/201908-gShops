@@ -17,7 +17,7 @@
      <div class="foods" ref="foodBscroll">
        <div>
          <ul class="container" v-for="(item,index) in goods" :key="index" ref="container">
-          <li v-for="(food,index) in item.foods" :key="index">
+          <li v-for="(food,index) in item.foods" :key="index" @click="showFoodDetail">
             <div class="food-pic">
                 <img src="./img/food.jpg">
               </div>
@@ -31,14 +31,16 @@
                 <div>
                   <span>¥{{food.price}}</span>
                   <span v-if="food.oldPrice">¥{{food.oldPrice}}</span>
-                  <span class="addShopCarBtn">+</span>
+                   <!-- 购物车 -->
+                  <shopCar :food="food"/>
                 </div>
                 <!-- <div>
                   <span>{{food.discountedPrice}}</span>
                   <span>{{food.limit}}</span>
                 </div> -->
-
+               
               </div>
+             
           </li>    
         </ul>
        </div>
@@ -51,14 +53,19 @@
 <script>
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
+import shopCar from '../../../components/shopCar/shopCar'
 export default {
   name: 'Foods',
   data(){
     return {
       number: '',
       listHeight: [],
-      scrollY: 0
+      scrollY: 0,
+      isShowFoodDetail: false     //食物详情弹出页显示
     }
+  },
+  components:{
+    shopCar
   },
   mounted(){
     this.$store.dispatch('getGoods',()=>{
@@ -109,7 +116,7 @@ export default {
         height += element.clientHeight;
         this.listHeight.push(height); 
       });
-      console.log(this.listHeight)
+      //console.log(this.listHeight)
     },
     //点击菜单
     menuItemClick(e,index){
@@ -117,6 +124,10 @@ export default {
       //console.log(e)
       const y = this.listHeight[index];
       this.scrollFood.scrollTo(0,-y);
+    },
+    //点击食物弹出食物详情页
+    showFoodDetail(){
+
     }
   }
 }
