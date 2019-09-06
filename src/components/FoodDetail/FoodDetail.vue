@@ -1,18 +1,18 @@
 <template>
-  <div class="foodDetail">
+  <div class="foodDetail" v-if="isShow">  
     <!-- 弹出层遮罩 -->
-    <div class="alert-cover"></div>
+    <div class="alert-cover" @click="toggleShow"></div>
     <div class="alert-content">
       <div class="food-img">
         <img src="./img/food.jpg" alt="">
       </div>
-      <h1>南瓜粥</h1>
+      <h1>{{food.name}}</h1>
       <div>
-        <span>月销91份</span>
-        <span>好评率100%</span>
+        <span>月销{{food.sellCount}}份</span>
+        <span>好评率{{food.rating}}%</span>
       </div>
       <div>
-        ¥9
+        ¥{{food.price}}
       </div>
     </div>
   </div>
@@ -20,12 +20,20 @@
 
 <script>
 export default {
+  name: 'FoodDetail',
   props:{
-    
-  
+    food: Object
+  },
+  data(){
+    return {
+      isShow: false
+    }
   },
   methods:{
-    
+    toggleShow(){
+      this.isShow = !this.isShow
+    },
+  
   }
 }
 </script>

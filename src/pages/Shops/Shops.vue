@@ -34,20 +34,24 @@
         </div>
       </div> -->
     </section>
-    <!-- 点击食物弹出层 -->
-    <!-- <FoodDetail v-if=""/> -->
+
   </div>
 </template>
 
 <script>
 import ShopsHeader from '../../components/shopsHeader/ShopsHeader'
-import FoodDetail from '../../components/FoodDetail/FoodDetail'
+
 export default {
   name: 'Shops',
   components:{
     ShopsHeader,
-    FoodDetail
+    
   },
+  data(){
+    return {
+      isShowFoodDetail: false
+    }
+  }
 }
 </script>
 

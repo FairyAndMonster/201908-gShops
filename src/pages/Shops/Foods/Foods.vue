@@ -17,7 +17,7 @@
      <div class="foods" ref="foodBscroll">
        <div>
          <ul class="container" v-for="(item,index) in goods" :key="index" ref="container">
-          <li v-for="(food,index) in item.foods" :key="index" @click="showFoodDetail">
+          <li v-for="(food,index) in item.foods" :key="index" @click="clickShowFoodDetail(food)">
             <div class="food-pic">
                 <img src="./img/food.jpg">
               </div>
@@ -46,7 +46,9 @@
        </div>
         
      </div>
-   
+    <!-- 点击食物弹出层 -->
+    <FoodDetail ref="foodDetail" :food="food"></FoodDetail>
+  
   </section>
 </template>
 
@@ -54,6 +56,7 @@
 import {mapState} from 'vuex'
 import BScroll from 'better-scroll'
 import shopCar from '../../../components/shopCar/shopCar'
+import FoodDetail from '../../../components/FoodDetail/FoodDetail'
 export default {
   name: 'Foods',
   data(){
@@ -61,11 +64,12 @@ export default {
       number: '',
       listHeight: [],
       scrollY: 0,
-      isShowFoodDetail: false     //食物详情弹出页显示
+      food: {}
     }
   },
   components:{
-    shopCar
+    shopCar,
+     FoodDetail
   },
   mounted(){
     this.$store.dispatch('getGoods',()=>{
@@ -107,6 +111,7 @@ export default {
           //console.log(scrollY)
         })
     },
+    //构建右侧高度数组
     _calculateHeight(){
       let foodList = this.$refs.foodBscroll.getElementsByClassName('container');
       let height = 0;
@@ -126,8 +131,9 @@ export default {
       this.scrollFood.scrollTo(0,-y);
     },
     //点击食物弹出食物详情页
-    showFoodDetail(){
-
+    clickShowFoodDetail(food){
+      this.food = food
+      this.$refs.foodDetail.toggleShow()
     }
   }
 }
